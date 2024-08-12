@@ -2,10 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Institutions extends Model
 {
-    use HasFactory;
+    protected $table = 'institutions';
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'name',
+        'url',
+        'location',
+    ];
+
+    public function majors()
+    {
+        return $this->belongsToMany(Majors::class, 'major_institutions', 'institution_id', 'major_id');
+    }
 }

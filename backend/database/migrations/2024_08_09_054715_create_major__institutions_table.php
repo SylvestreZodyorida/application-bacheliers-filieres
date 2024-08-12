@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('major__institutions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('major_id')->constrained('majors')->onDelete('cascade');
+            $table->string('url')->default('null');
             $table->foreignId('institution_id')->constrained('institutions')->onDelete('cascade');
             $table->timestamps();
         });

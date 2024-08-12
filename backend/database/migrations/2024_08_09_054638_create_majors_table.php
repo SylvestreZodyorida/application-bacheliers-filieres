@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('majors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('url')->default('null');
             $table->float('min_average');
             $table->timestamps();
         });

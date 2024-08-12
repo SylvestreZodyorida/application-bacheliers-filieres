@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->enum('entry_mode', ['classement', 'concours']);
             $table->foreignId('series_id')->constrained('series')->onDelete('cascade');
+            $table->string('url')->default('null');
+            $table->foreignId('user_id')->constrained('users');
             $table->float('average')->nullable();
             $table->timestamps();
         });
