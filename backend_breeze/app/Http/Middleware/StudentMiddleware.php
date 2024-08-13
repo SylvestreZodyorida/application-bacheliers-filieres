@@ -9,12 +9,19 @@ class StudentMiddleware
 {
     public function handle($request, Closure $next)
     {
-        // Vérifier si l'utilisateur est authentifié et s'il a un rôle d'étudiant
-        if (Auth::check() && Auth::user()->role === 'student') {
-            return $next($request);
-        }
+        $user = Auth::user();
 
-        // Si l'utilisateur n'est pas un étudiant, rediriger ou retourner une réponse 403
-        return redirect('/unauthorized')->with('error', 'Vous n\'êtes pas autorisé à accéder à cette page.');
+        if ($user->is_type == 1) {
+            // L'utilisateur est un administrateur
+            return redirect()->route('admin.dashboard')->with('error', 'Vous n\'avez pas la permission d\'accéder à cette page');
+
+        } elseif ($user->is_type == 2) {
+            //l'utilisateur est un bachelier
+            return $next($request);
+
+        } else {
+            // L'utilisateur n'a aucun des rôles spécifiés
+            return redirect('/')->with('error', 'Vous n\'avez pas la permission d\'accéder à cette page');
+        }
     }
 }
